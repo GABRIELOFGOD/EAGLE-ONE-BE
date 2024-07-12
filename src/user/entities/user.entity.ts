@@ -20,8 +20,23 @@ export class UserEntity {
   @Column({ type: 'text', nullable: true })
   address: string;
 
+  @Column({ type: 'text', nullable: true })
+  address2: string;
+
+  @Column({ type: 'text', nullable: true })
+  city: string;
+
+  @Column({ type: 'text', nullable: true })
+  state: string;
+
+  @Column({ type: 'text', nullable: true, default: "Nigeria" })
+  country: string;
+
+  @Column({ type: 'text', nullable: true })
+  ZIP: string;
+
   @Column()
-  sex: "MALE" | "FEMALE";
+  sex: "Male" | "Female";
 
   @Column({ type: 'date' })
   dob: Date;

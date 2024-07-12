@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ContinueRegistrationDto } from './dto/continue-registration.dto';
+import { ForgotPasswordDto } from './dto/user-forgot-password-dto';
 
 // TODO: 
 // - npm install bcrypt class-validator class-transformer
@@ -22,9 +23,9 @@ export class UserController {
   //   return this.userService.confirmRegistration(continueRegistrationDto)
   // }
 
-  @Post('confirm-email?token')
-  confirmRegistratioh(@Query('token') token: string, @Body(ValidationPipe) continueRegistrationDto:ContinueRegistrationDto){
-    return this.userService.confirmRegistration(token, continueRegistrationDto)
+  @Post('confirm-email')
+  confirmRegistration(@Query('email') email: string, @Body(ValidationPipe) continueRegistrationDto:ContinueRegistrationDto){
+    return this.userService.confirmRegistration(email, continueRegistrationDto)
   }
 
   @Post('login')
@@ -32,13 +33,38 @@ export class UserController {
     return this.userService.login(loginUserDto)
   }
 
+  @Post("forgot-password")
+  forgotPassword(@Body(ValidationPipe) forgotPasswordDto: ForgotPasswordDto) {
+    return this.userService.forgotPassword(forgotPasswordDto);
+  };
+
+  @Post("reset-password")
+  newPasswordReset(@Query("token") token: string, @Body(ValidationPipe) continueRegistrationDto: ContinueRegistrationDto) {
+    return this.userService.newPasswordReset(token, continueRegistrationDto);
+  };
+
+  @Get("profile")
+  profile(@Query("token") token: string) {
+    return this.userService.profile(token);
+  };
+
+
+
+
+
+
+
+
+
+  // =============== NO END POINT AFTER HERE ====================== //
+
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ValidationPipe) id: string) {
     return this.userService.findOne(+id);
   }
 

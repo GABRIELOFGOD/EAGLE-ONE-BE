@@ -22,9 +22,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  @IsIn(["MALE", "FEMALE"])
+  @IsIn(["Male", "Female"])
   @IsNotEmpty()
-  sex: "MALE" | "FEMALE";
+  sex: "Male" | "Female";
 
   @IsDate()
   @Type(() => Date)
